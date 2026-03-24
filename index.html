@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- NAVIGATION HAUT DROITE -->
+    <nav class="navbar">
+        <a href="https://mail.google.com" class="nav-link" target="_blank">Gmail</a>
+        <a href="https://images.google.com" class="nav-link" target="_blank">Images</a>
+
+        <!-- Grille 9 points -->
+        <button class="btn-apps" id="btnApps" title="Applications Google">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+          <circle cx="5"  cy="5"  r="1.8" fill="#e8c96d"/>
+          <circle cx="12" cy="5"  r="1.8" fill="#e8c96d"/>
+          <circle cx="19" cy="5"  r="1.8" fill="#e8c96d"/>
+          <circle cx="5"  cy="12" r="1.8" fill="#e8c96d"/>
+          <circle cx="12" cy="12" r="1.8" fill="#e8c96d"/>
+          <circle cx="19" cy="12" r="1.8" fill="#e8c96d"/>
+          <circle cx="5"  cy="19" r="1.8" fill="#e8c96d"/>
+          <circle cx="12" cy="19" r="1.8" fill="#e8c96d"/>
+          <circle cx="19" cy="19" r="1.8" fill="#e8c96d"/>
+        </svg>
+      </button>
+
+        <!-- Avatar -->
+        <div class="avatar">J</div>
+    </nav>
+
+    <!-- POPUP APPS -->
+    <div class="apps-popup" id="appsMenu">
+        <a href="https://mail.google.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#3a1a1a; color:#ea4335;">✉</div>
+            <span>Gmail</span>
+        </a>
+        <a href="https://drive.google.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#1a3a1a; color:#34a853;">▲</div>
+            <span>Drive</span>
+        </a>
+        <a href="https://maps.google.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#1a1a3a; color:#4285f4;">📍</div>
+            <span>Maps</span>
+        </a>
+        <a href="https://youtube.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#3a1a1a; color:#ea4335;">▶</div>
+            <span>YouTube</span>
+        </a>
+        <a href="https://calendar.google.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#1a1a3a; color:#4285f4;">📅</div>
+            <span>Agenda</span>
+        </a>
+        <a href="https://translate.google.com" class="app-item" target="_blank">
+            <div class="app-icon" style="background:#3a2a0a; color:#fbbc05; font-size:0.7rem; font-weight:700;">A→</div>
+            <span>Traduction</span>
+        </a>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+
+        <!-- LOGO GOOGLE — mêmes couleurs Google -->
+        <div class="logo">
+            <span style="color:#4285f4;">G</span>
+            <span style="color:#ea4335;">o</span>
+            <span style="color:#fbbc05;">o</span>
+            <span style="color:#4285f4;">g</span>
+            <span style="color:#34a853;">l</span>
+            <span style="color:#ea4335;">e</span>
+        </div>
+
+        <!-- BARRE DE RECHERCHE -->
+        <div class="search-bar">
+            <svg class="icon-loupe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#9a8aaa" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5
+                   6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59
+                   4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6
+                   0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5
+                   14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+
+            <input type="text" id="searchInput" class="search-input" placeholder="Effectuez une recherche sur Google ou saisissez une URL" autocomplete="off" />
+
+            <button class="btn-mic" title="Recherche vocale">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
+            <path fill="#4285f4" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+            <path fill="#34a853" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+        </button>
+        </div>
+
+        <!-- BOUTONS -->
+        <div class="search-buttons">
+            <button class="btn-google" id="btnSearch">Recherche Google</button>
+            <button class="btn-lucky" id="btnLucky">J'ai de la chance</button>
+        </div>
+
+        <!-- LANGUE -->
+        <p class="lang-line">
+            Google proposé en&nbsp;:
+            <a href="#" class="lang-link">한국어</a>
+            <a href="#" class="lang-link">English</a>
+        </p>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-gauche">
+            <a href="#" class="footer-link">Publicité</a>
+            <a href="#" class="footer-link">Entreprises</a>
+            <a href="#" class="footer-link">Comment fonctionne la recherche Google</a>
+        </div>
+        <div class="footer-droite">
+            <a href="#" class="footer-link">Confidentialité</a>
+            <a href="#" class="footer-link">Conditions</a>
+            <a href="#" class="footer-link">Paramètres</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
