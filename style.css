@@ -1,6 +1,64 @@
-/* =============================================
-   RESET
-   ============================================= */
+/* ================================================================
+   style.css — Google × The Penthouse
+   Niveau : débutant avancé
+
+   TABLE DES MATIÈRES :
+   1.  Variables CSS
+   2.  Reset
+   3.  Body + fond dégradé
+   4.  Lustres de cristal (décoration)
+   5.  Navbar
+   6.  Menu Apps (popup)
+   7.  Contenu principal
+   8.  Logo Google
+   9.  Barre de recherche
+   10. Boutons
+   11. Langues
+   12. Footer
+   13. Animations CSS
+================================================================ */
+
+
+/* ================================================================
+   1. VARIABLES CSS
+   Définies dans :root (la racine du document = <html>).
+   Utilisation : color: var(--or);
+   Avantage : changer une couleur ici = mis à jour partout.
+================================================================ */
+
+:root {
+    /* Palette Penthouse */
+    --fond: #0e0620;
+    --violet-1: #2e0b6e;
+    /* tache lumineuse gauche */
+    --violet-2: #4a1090;
+    /* tache lumineuse centre */
+    --violet-3: #1a0545;
+    /* tache lumineuse droite */
+    --or: #c9a84c;
+    --or-clair: #e8c96d;
+    --or-brillant: #f5d98b;
+    --popup-fond: #160730;
+    --popup-bord: rgba(201, 168, 76, 0.25);
+    /* Textes */
+    --texte: #ede5ff;
+    --texte-doux: #a090c0;
+    --texte-footer: #7a6a8a;
+    /* Couleurs Google officielles */
+    --g-bleu: #4285f4;
+    --g-rouge: #ea4335;
+    --g-jaune: #fbbc05;
+    --g-vert: #34a853;
+    /* Tailles */
+    --rayon-barre: 26px;
+}
+
+
+/* ================================================================
+   2. RESET
+   Supprime les marges/paddings par défaut du navigateur.
+   box-sizing: border-box = le padding est inclus dans la largeur.
+================================================================ */
 
 *,
 *::before,
@@ -10,325 +68,560 @@
     box-sizing: border-box;
 }
 
-
-/* =============================================
-   BASE — fond violet Penthouse
-   ============================================= */
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    /* Fond violet profond comme l'affiche Penthouse */
-    background: radial-gradient(ellipse at 50% 0%, #3d1070 0%, transparent 60%), radial-gradient(ellipse at 0% 50%, #5a1090 0%, transparent 45%), radial-gradient(ellipse at 100% 50%, #3a0060 0%, transparent 45%), #120828;
-    color: #e8ddf5;
-}
-
 a {
     text-decoration: none;
     color: inherit;
 }
 
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
 
-/* =============================================
-   NAVIGATION — même position que Google (haut droite)
-   ============================================= */
+
+/* ================================================================
+   3. BODY + FOND DÉGRADÉ
+   On empile 3 radial-gradient pour imiter les halos lumineux
+   violets de l'affiche The Penthouse.
+   Le body est en flexbox colonne pour que le footer reste en bas.
+================================================================ */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: var(--texte);
+    overflow-x: hidden;
+    background: radial-gradient(ellipse 60% 50% at 15% 40%, var(--violet-1) 0%, transparent 100%), radial-gradient(ellipse 50% 60% at 85% 35%, var(--violet-3) 0%, transparent 100%), radial-gradient(ellipse 70% 40% at 50% 5%, var(--violet-2) 0%, transparent 100%), var(--fond);
+}
+
+
+/* ================================================================
+   4. LUSTRES DE CRISTAL
+   Positionnés en "fixed" pour rester visibles en permanence.
+   Chaque cristal est un <span> avec une hauteur différente.
+   Le dégradé semi-transparent donne l'effet verre/cristal.
+================================================================ */
+
+.lustre {
+    position: fixed;
+    top: 0;
+    z-index: 0;
+    /* derrière tout le contenu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    /* on ne peut pas cliquer dessus */
+}
+
+.lustre-gauche {
+    left: 3%;
+}
+
+.lustre-droit {
+    right: 3%;
+}
+
+
+/* Tige verticale qui "suspend" le lustre */
+
+.lustre-chaine {
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--or), transparent);
+    opacity: 0.5;
+}
+
+
+/* Conteneur horizontal des cristaux */
+
+.lustre-cristaux {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+
+/* Un cristal = barre transparente dorée, forme effilée en bas */
+
+.cristal {
+    display: block;
+    width: 7px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 0.85) 0%, rgba(201, 168, 76, 0.6) 40%, rgba(255, 255, 255, 0.1) 100%);
+    box-shadow: 0 0 6px rgba(201, 168, 76, 0.3), inset 0 0 3px rgba(255, 255, 255, 0.2);
+    /* Animation de balancement subtile */
+    animation: balancement 4s ease-in-out infinite;
+}
+
+
+/* Chaque cristal a un délai différent pour ne pas bouger en sync */
+
+.cristal:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.cristal:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.cristal:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.cristal:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.cristal:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+
+/* ================================================================
+   5. NAVBAR
+   justify-content: space-between = gauche poussé à gauche,
+   droite poussé à droite.
+   z-index: 100 = au dessus des lustres.
+================================================================ */
 
 .navbar {
+    position: relative;
+    z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding: 14px 20px;
-    gap: 12px;
+    justify-content: space-between;
+    padding: 16px 22px;
 }
 
-.nav-link {
+.nav-gauche,
+.nav-droite {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-lien {
     font-size: 13px;
-    color: #e8ddf5;
-    padding: 6px 8px;
+    color: var(--texte);
+    opacity: 0.8;
+    padding: 7px 10px;
     border-radius: 4px;
-    transition: background 0.2s;
+    transition: background 0.25s, opacity 0.25s;
 }
 
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
+.nav-lien:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.08);
     text-decoration: underline;
 }
 
 
-/* Grille 9 points */
+/* Bouton grille 9 points */
 
-.btn-apps {
+.btn-grille {
     background: none;
     border: none;
-    cursor: pointer;
     padding: 8px;
     border-radius: 50%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
+    color: var(--texte-doux);
+    transition: background 0.25s, color 0.25s;
 }
 
-.btn-apps:hover {
+.btn-grille:hover {
     background: rgba(255, 255, 255, 0.1);
+    color: var(--or-clair);
 }
 
 
-/* Avatar doré */
+/* Avatar doré avec initiale */
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #c9a84c, #e8c96d);
-    color: #1a0a2e;
+    background: linear-gradient(135deg, var(--or), var(--or-brillant));
+    color: var(--fond);
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);
+    letter-spacing: 0;
+    box-shadow: 0 0 14px rgba(201, 168, 76, 0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.avatar:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 22px rgba(201, 168, 76, 0.65);
 }
 
 
-/* =============================================
-   POPUP APPS
-   ============================================= */
+/* ================================================================
+   6. MENU APPS (popup)
 
-.apps-popup {
+   Par défaut : caché (opacity:0, translateY vers le haut).
+   Avec la classe ".ouvert" : visible (opacity:1, translateY(0)).
+
+   On utilise opacity + transform plutôt que display:none/block
+   car ça permet d'animer l'apparition avec transition.
+   pointer-events:none empêche les clics quand c'est caché.
+================================================================ */
+
+.menu-apps {
     position: fixed;
-    top: 58px;
-    right: 10px;
-    background: #1e0d3a;
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    padding: 14px;
-    display: none;
-    grid-template-columns: repeat(3, 80px);
-    gap: 4px;
-    z-index: 999;
-}
-
-.apps-popup.visible {
+    top: 66px;
+    right: 14px;
+    width: 296px;
+    background: var(--popup-fond);
+    border: 1px solid var(--popup-bord);
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 168, 76, 0.08);
+    padding: 12px 8px 16px;
+    /* Grille 3 colonnes automatiques */
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    z-index: 200;
+    /* État initial : invisible et décalé vers le haut */
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.app-item {
+
+/* État ouvert : visible et en place */
+
+.menu-apps.ouvert {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+
+/* Chaque lien app dans la grille */
+
+.app {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 10px 4px;
-    border-radius: 8px;
-    cursor: pointer;
+    gap: 7px;
+    padding: 12px 4px 10px;
+    border-radius: 10px;
+    color: var(--texte);
+    font-size: 12px;
+    text-align: center;
     transition: background 0.2s;
-    font-size: 11px;
-    color: #e8ddf5;
 }
 
-.app-item:hover {
-    background: rgba(201, 168, 76, 0.1);
+.app:hover {
+    background: rgba(255, 255, 255, 0.07);
 }
 
-.app-icon {
-    width: 36px;
-    height: 36px;
+.app img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+
+/* Bouton "Plus" */
+
+.app-plus {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 24px;
+    color: var(--texte-doux);
+    line-height: 1;
 }
 
 
-/* =============================================
-   CONTENU PRINCIPAL — même layout que Google
-   ============================================= */
+/* ================================================================
+   7. CONTENU PRINCIPAL
+   flex: 1 = prend tout l'espace disponible entre navbar et footer.
+   align-items: center = centré horizontalement.
+   justify-content: center = centré verticalement.
+   padding-bottom compense la hauteur fixe du footer.
+================================================================ */
 
-.main-content {
+.contenu {
+    position: relative;
+    z-index: 10;
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 22px;
-    padding-bottom: 100px;
+    gap: 26px;
+    padding-bottom: 80px;
 }
 
 
-/* =============================================
-   LOGO GOOGLE — même taille, même police
-   ============================================= */
+/* ================================================================
+   8. LOGO GOOGLE
+   Chaque lettre est un <span> avec une couleur.
+   font-size en "vw" = s'adapte à la largeur de l'écran.
+   clamp(min, idéal, max) = taille fluide avec limites.
+================================================================ */
 
 .logo {
-    font-family: arial, sans-serif;
-    font-size: 92px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(64px, 10vw, 100px);
     font-weight: 400;
     line-height: 1;
-    letter-spacing: 0;
+    letter-spacing: 2px;
     user-select: none;
 }
 
 
-/* =============================================
-   BARRE DE RECHERCHE — même forme que Google
-   (pilule, même hauteur, même largeur)
-   ============================================= */
+/* Couleurs officielles Google sur chaque lettre */
 
-.search-bar {
+.bleu {
+    color: var(--g-bleu);
+}
+
+.rouge {
+    color: var(--g-rouge);
+}
+
+.jaune {
+    color: var(--g-jaune);
+}
+
+.vert {
+    color: var(--g-vert);
+}
+
+
+/* ================================================================
+   9. BARRE DE RECHERCHE
+   Forme pilule (border-radius élevé).
+   :focus-within = s'active quand un enfant (l'input) a le focus.
+================================================================ */
+
+.barre-recherche {
     display: flex;
     align-items: center;
-    width: 582px;
+    width: 580px;
     max-width: 90vw;
-    height: 46px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 24px;
-    padding: 0 14px;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    /* responsive : max 90% sur mobile */
+    height: 50px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--rayon-barre);
+    padding: 0 18px;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 
-.search-bar:focus-within {
+.barre-recherche:focus-within {
     background: rgba(255, 255, 255, 0.13);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(201, 168, 76, 0.5);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12), 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.icon-loupe {
+
+/* Icône loupe */
+
+.icone-loupe {
     width: 20px;
     height: 20px;
+    fill: var(--texte-doux);
     flex-shrink: 0;
-    margin-right: 10px;
+    margin-right: 12px;
+    transition: fill 0.2s;
 }
 
-.search-input {
+.barre-recherche:focus-within .icone-loupe {
+    fill: var(--or-clair);
+}
+
+
+/* Champ texte : transparent, hérite du fond */
+
+.champ-texte {
     flex: 1;
+    /* prend tout l'espace libre */
+    background: transparent;
     border: none;
     outline: none;
-    font-size: 16px;
-    font-family: arial, sans-serif;
-    color: #f0e8d8;
-    background: transparent;
-    caret-color: #e8c96d;
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    color: var(--texte);
+    caret-color: var(--or-clair);
 }
 
-.search-input::placeholder {
-    color: #8a7a9a;
+.champ-texte::placeholder {
+    color: var(--texte-doux);
     font-size: 14px;
 }
 
-.btn-mic {
+
+/* Bouton micro */
+
+.btn-micro {
     background: none;
     border: none;
-    cursor: pointer;
     padding: 4px;
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.btn-micro:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 
-/* =============================================
-   BOUTONS — même forme que Google, couleurs Penthouse
-   ============================================= */
+/* ================================================================
+   10. BOUTONS
+   Les deux boutons ont le même style de base (.btn-base).
+   Technique "mixin-like" en CSS : on liste les deux sélecteurs.
+================================================================ */
 
-.search-buttons {
+.boutons {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
-.btn-google,
-.btn-lucky {
-    height: 36px;
-    padding: 0 18px;
-    border-radius: 4px;
+.btn-recherche,
+.btn-chance {
+    height: 38px;
+    padding: 0 22px;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
     font-size: 14px;
-    font-family: arial, sans-serif;
-    cursor: pointer;
-    transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--texte);
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.15s;
 }
 
-.btn-google {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e8ddf5;
+.btn-recherche:hover,
+.btn-chance:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(201, 168, 76, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
+    /* légère élévation au survol */
 }
 
-.btn-google:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-}
-
-.btn-lucky {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #e8ddf5;
-}
-
-.btn-lucky:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+.btn-recherche:active,
+.btn-chance:active {
+    transform: translateY(0);
+    /* revient en place au clic */
 }
 
 
-/* =============================================
-   LANGUE
-   ============================================= */
+/* ================================================================
+   11. LANGUES
+================================================================ */
 
-.lang-line {
+.langues {
     font-size: 13px;
-    color: #8a7a9a;
+    color: var(--texte-doux);
 }
 
-.lang-link {
-    color: #c9a84c;
-    margin-left: 6px;
+.lien-langue {
+    color: var(--or);
+    margin-left: 8px;
+    transition: color 0.2s;
 }
 
-.lang-link:hover {
+.lien-langue:hover {
+    color: var(--or-brillant);
     text-decoration: underline;
-    color: #e8c96d;
 }
 
 
-/* =============================================
-   FOOTER — collé en bas, même structure Google
-   ============================================= */
+/* ================================================================
+   12. FOOTER
+   "position: fixed" = toujours collé en bas de l'écran.
+   Divisé en 2 parties : pays (ligne 1) + liens (ligne 2).
+================================================================ */
 
 .footer {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 50;
+    background: rgba(8, 3, 18, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    color: var(--texte-footer);
+    backdrop-filter: blur(8px);
+    /* flou sur ce qui est derrière */
+}
+
+.footer-pays {
+    padding: 5px 24px 3px;
+}
+
+.footer-liens {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 24px;
-    background: #0d0718;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    font-size: 13px;
-    color: #8a7a9a;
+    padding: 7px 24px 9px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
 .footer-gauche,
+.footer-centre,
 .footer-droite {
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-.footer-link {
-    color: #7a6a8a;
+.footer-lien {
+    color: var(--texte-footer);
+    white-space: nowrap;
     transition: color 0.2s;
 }
 
-.footer-link:hover {
-    color: #c9a84c;
+.footer-lien:hover {
+    color: var(--or-clair);
     text-decoration: underline;
+}
+
+
+/* ================================================================
+   13. ANIMATIONS CSS
+   @keyframes définit les étapes d'une animation.
+   On les appelle avec la propriété "animation" sur un élément.
+================================================================ */
+
+
+/* Balancement léger des cristaux du lustre */
+
+@keyframes balancement {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(1.5deg);
+    }
+    75% {
+        transform: rotate(-1.5deg);
+    }
 }

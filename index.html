@@ -5,124 +5,233 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Favicon : le G doré The Penthouse -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+
+    <!--
+    Polices Google Fonts :
+    - "Cinzel" : police majuscule élégante, style drama coréen
+    - "Raleway" : police fine et moderne pour le texte courant
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <!-- Notre CSS séparé -->
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <!-- NAVIGATION HAUT DROITE -->
-    <nav class="navbar">
-        <a href="https://mail.google.com" class="nav-link" target="_blank">Gmail</a>
-        <a href="https://images.google.com" class="nav-link" target="_blank">Images</a>
+    <!--
+    LUSTRE GAUCHE & DROIT
+    Purement décoratifs, faits en CSS.
+    Ils reproduisent les lustres de cristal de l'affiche.
+  -->
+    <div class="lustre lustre-gauche" aria-hidden="true">
+        <div class="lustre-chaine"></div>
+        <div class="lustre-cristaux">
+            <span class="cristal" style="height:50px"></span>
+            <span class="cristal" style="height:80px"></span>
+            <span class="cristal" style="height:110px"></span>
+            <span class="cristal" style="height:75px"></span>
+            <span class="cristal" style="height:45px"></span>
+        </div>
+    </div>
+    <div class="lustre lustre-droit" aria-hidden="true">
+        <div class="lustre-chaine"></div>
+        <div class="lustre-cristaux">
+            <span class="cristal" style="height:45px"></span>
+            <span class="cristal" style="height:75px"></span>
+            <span class="cristal" style="height:110px"></span>
+            <span class="cristal" style="height:80px"></span>
+            <span class="cristal" style="height:50px"></span>
+        </div>
+    </div>
 
-        <!-- Grille 9 points -->
-        <button class="btn-apps" id="btnApps" title="Applications Google">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-          <circle cx="5"  cy="5"  r="1.8" fill="#e8c96d"/>
-          <circle cx="12" cy="5"  r="1.8" fill="#e8c96d"/>
-          <circle cx="19" cy="5"  r="1.8" fill="#e8c96d"/>
-          <circle cx="5"  cy="12" r="1.8" fill="#e8c96d"/>
-          <circle cx="12" cy="12" r="1.8" fill="#e8c96d"/>
-          <circle cx="19" cy="12" r="1.8" fill="#e8c96d"/>
-          <circle cx="5"  cy="19" r="1.8" fill="#e8c96d"/>
-          <circle cx="12" cy="19" r="1.8" fill="#e8c96d"/>
-          <circle cx="19" cy="19" r="1.8" fill="#e8c96d"/>
+    <!-- =============================================
+       NAVIGATION
+       Reproduit exactement Google :
+       gauche = À propos + Google Store
+       droite = Gmail + Images + grille + avatar
+  ============================================= -->
+    <nav class="navbar">
+        <div class="nav-gauche">
+            <a href="#" class="nav-lien">À propos</a>
+            <a href="https://store.google.com" class="nav-lien" target="_blank">Google Store</a>
+        </div>
+        <div class="nav-droite">
+            <a href="https://mail.google.com" class="nav-lien" target="_blank">Gmail</a>
+            <a href="https://images.google.com" class="nav-lien" target="_blank">Images</a>
+
+            <!-- Grille 9 points → ouvre le menu apps -->
+            <button class="btn-grille" id="btnApps" title="Applications Google">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <circle cx="5"  cy="5"  r="1.9" fill="currentColor"/>
+          <circle cx="12" cy="5"  r="1.9" fill="currentColor"/>
+          <circle cx="19" cy="5"  r="1.9" fill="currentColor"/>
+          <circle cx="5"  cy="12" r="1.9" fill="currentColor"/>
+          <circle cx="12" cy="12" r="1.9" fill="currentColor"/>
+          <circle cx="19" cy="12" r="1.9" fill="currentColor"/>
+          <circle cx="5"  cy="19" r="1.9" fill="currentColor"/>
+          <circle cx="12" cy="19" r="1.9" fill="currentColor"/>
+          <circle cx="19" cy="19" r="1.9" fill="currentColor"/>
         </svg>
       </button>
 
-        <!-- Avatar -->
-        <div class="avatar">J</div>
+            <div class="avatar">J</div>
+        </div>
     </nav>
 
-    <!-- POPUP APPS -->
-    <div class="apps-popup" id="appsMenu">
-        <a href="https://mail.google.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#3a1a1a; color:#ea4335;">✉</div>
+    <!-- =============================================
+       MENU APPS (popup, caché par défaut)
+       JS ajoute/retire la classe "ouvert" pour
+       l'afficher ou le masquer.
+  ============================================= -->
+    <div class="menu-apps" id="appsMenu" role="menu">
+        <a href="https://mail.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABL0lEQVR4nO2Y0RGCMAyGfzxXwE1kARkbF9BNZAh9ULRXktKGtAUv34ueJ83/0YSrAoZhGIbxLzwu52ftDDG4ORvqw3a4lc4Uzdh33/en671pAPrOb1HCDT9B7oDLFkSo4MB7Bw7Si0uxVH8mQN3xWhJUXT8fuQNbkIgJDzAC3JfHvssuwtXgZjE4A9xFuSS4dUMPksUhbodbkZbi7vrSU3BRwF0spqiElJbxiRbgFl0rsSY8kCjALS4Z7tRh5UgWCBWJlZAMK4dIYComaSnpsHKIBdziPpyERsv4rBbgQrg9rtXvFCoCQPpcaJ1yjyqrfJhCheZA+3iutgMuXMgcvy2yCAC/sP6rNtkEgPzhgcwCJTCB2phAbUygNiZQm90LzE6jtf8LTWX3O2AYxs55ATTzh9O5EDOTAAAAAElFTkSuQmCC"
+                alt="Gmail" />
             <span>Gmail</span>
         </a>
-        <a href="https://drive.google.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#1a3a1a; color:#34a853;">▲</div>
+        <a href="https://drive.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABM0lEQVR4nO2YsRUCIRBER1uxBW1ASzAxsxqrsAETU6uwCkNDn7lGvHfJwc6xy64eE5/Knw8HCPT0zDsL6x9YX/Yf6bP3w5Uez5L9gGUY2BRTgO3pTQ+ITSgDAG/BDKCmfQbC1MBrdbT8egBGABpzX2oh3BoYRgKhDtDizTNMaANA2YIqgFX7OYjwBkpRA7Ce+2MWfsbA2EFPBaD1m2cYMwOau3DumF0N4Nk+8ANroHTJqQLwbh8IbkByxQwNIMlkAOvpI73gz9NAlPYBIwMtrpIpNIB1+7fzg3o+1BpgBw+QAK02ruduE+NvFSZT2gcIgNbHBqmFEAamtg8IAbwObRIL7gZq2gcEAN5H5pIFdQPMLlzbPlAA8G4/JWfBbQ1otA9kAKK0nzJmwcWAVvs9PT1/kC+w2XdsDhtx1AAAAABJRU5ErkJggg=="
+                alt="Drive" />
             <span>Drive</span>
         </a>
-        <a href="https://maps.google.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#1a1a3a; color:#4285f4;">📍</div>
+        <a href="https://maps.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABQUlEQVR4nO1Z2xHCMAwTHCvAJrAAjA0LwCZ0CPjKHRfycGyZcGB9FupK8iNJCwQC/42VR9D7cf+o/ba73KjPpAVrka6BIcYcQEM8h0XI2vJgBnlrHLUAFnlrPJUANnlL3GEBXuS18TdeRLbn69u15XSgP2eo+yXulIjnkAiRTibTFMohIT/yPwnEGei53ysZTUlJsuDSAyVi6RrTfYBUQlpSDDHUHgD6ZcGeRHQBn0YIyNGr62lN3Bpp2rpu3SddyFzGaHK5tw4wMHyQaC1oIyQZ7gPkHpCWEnOUqo5y2k0dcxOXoD6LepwLNGdjdQmxX49o45l6gCVi2luJb4BZgDUL1vsjA4DeRUYPRQYSRt1kTbDIwCukrjIXwcjAbNAF9MqDvYeKDJRQc5ntPhAZqCN328N94Acy4A7vT1KRgdl4Aq/VgyitqjhUAAAAAElFTkSuQmCC"
+                alt="Maps" />
             <span>Maps</span>
         </a>
-        <a href="https://youtube.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#3a1a1a; color:#ea4335;">▶</div>
+        <a href="https://youtube.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAA4ElEQVR4nO2Y2w6EIAxEi9n//2X2Se1itybQG8mcNwPRGadQhQgAAAAAebS3CZ2oRwjRaIrOvwMVhI9IRg5pYkXxRLKuh4Gq4k9GfYc2WBWuUyyhnbgMLL39Hh/cqdcugd5TjHzM78hNtNc2s4zvGghIJWYROxqxLyENh/LK20aNUolNQGIxlVqNbCKV/AQ4EwnkG1hczHkGjHahWAMOnTnGgOMnha+BgG8hewMBojl2BoKFX4/lF7v8UhLdJxS1OvEEPwa0A6RKcJ2PBKqbGPWJJVTVhKRr+7NRAAAAYGu+2vU0Q5J68RgAAAAASUVORK5CYII="
+                alt="YouTube" />
             <span>YouTube</span>
         </a>
-        <a href="https://calendar.google.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#1a1a3a; color:#4285f4;">📅</div>
+        <a href="https://calendar.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAA+0lEQVR4nO2ZTQ6CMBCFn8Y7aHShiT8X1GPoBRETXGj0FLiqaaAtjUFmhrxvy1i+lxkcjAAhhEgySV1cHl/1UCJdPC+LoOs09gFN8kDcJxhAm7wj5NUKoFXe0fSLjpAVGEAaBpCGAaRhAGkYQJrWK2pRVjUA7Lfr4W06uN7uAIDDbvP1nvV5g9XpnV37OM97uaf5EcrqgGtdiF9HLXamf16spiir2o2R+Q4wgDQMIE3Wt9A/llrOmc2a0CIz34GsV4ncPTBkHfeAFhhAGvMBzP+gMd+B8QZILREJYj6tAP58aQnhe/h+QOJPPvcwa6IpDyRGKFQsiTYfMho+s8BU6q9iYe4AAAAASUVORK5CYII="
+                alt="Agenda" />
             <span>Agenda</span>
         </a>
-        <a href="https://translate.google.com" class="app-item" target="_blank">
-            <div class="app-icon" style="background:#3a2a0a; color:#fbbc05; font-size:0.7rem; font-weight:700;">A→</div>
+        <a href="https://translate.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABOklEQVR4nOVaSRKDMAxzMr2VV5VflXP5VXlVObenzGQSk4U4xQIdnYyRLLENGCrA4/X5luzrgWUaTGo9uXgk8RBbQtiiJuIhQiE23KCZPFHMz6YWtcLnabkiAhzfKEJoMER40/cB74BFnj7RGRw4mkArblKN3s97VBvnVar9JuAdEBHATT9Vl+jtAOFASkSzgNyEJFxI9YFwwIETASWAQ5OA0nhIxYjrJXYfaEWNSLd3nNcLR6g2FpIx8ntCO7A7Qnun2cMFNSfx1oNf7iERLkKh0GoBrTGQjhGUA1zMqs+Bf7yk1BwXwoHU0NQLyDleHKEe13CJOKp3IIdrCOgRH6m+53eg1/Sl+sM7kL2MHnXnLYXNfYfVDvgIWaL813CtWKbBnMMBIjwXHF/LFbXD5xlFSLuIkB/83yo/uYdqSuas2t0AAAAASUVORK5CYII="
+                alt="Traduction" />
             <span>Traduction</span>
+        </a>
+        <a href="https://photos.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB10lEQVR4nO1XMVLDQAyUmJgGWvKS+APYP0gK3gI1vCUp+EHMAwgvSQ0NZuYoGDP2WYd1kowv4O2SkezdW8nSAcyYFmj1oGORO/+/ZXUwe34I6hdQxH2MKeRMk8whHxMngVhALKmxRIgESMmMIUJVQikgWoD2FK1d+H8OpIaTF7CYmoCPep/1eiQr6+AgFE1ITSOGpjJF3AclJIkS4pAPxYkESHcbKo9LPhQvdiBWhAV5Kk/VxMvqgKF+uNo/d347AIeI5lup+X3AJ06+FBGlp99GVta2J+KcY5P6qM7V78vKGgdL6Pr+tUfq6e6yJzyGPADAong3ERF0gCLuoy0kVgCA3oWsrJH8CnHIt+Mk5AG+XNCiJ4BLXhpvhWYqdwRMRUaDJFaJWLR3om8BU5eCNN7EgeLhTZTXTGauCCoumftAQ058H7Aooer2gh1rtReZNjGXVL7bwGq7Num5zgs1LvjrBTXc8t2GzH25eRS7MVoPICJyT3m1XTupiE4JUUsaB1RebIlIS6rXA7EiLMhr8sgm5oqQOmaJQQLc+0ADi69LTD8MNnEKp/wTTnKZa2MWMDXMBWimqiR/doCC1AVJ3mgOxJIx2YWswSWl6ZtfG1LUhNY2/J/AJ1s70+KO4eRRAAAAAElFTkSuQmCC"
+                alt="Photos" />
+            <span>Photos</span>
+        </a>
+        <a href="https://meet.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABF0lEQVR4nO2auw7DIAxFbdRvboZmbIby0+nQJKIGHPJAthFH6tBA4R5wI+WBUMLnNRf1q8EwIdfMNooGp2RE0gKaglOIiIs6aA4PEOVzXKNagpwuddAES964hIzx+0NYW/0A8zvgLK8+QBM7YBxzAvPz/ff9IZTjMDT4CiuQ+9EV0I/FfUvmTwrUCE7H5kSOzK+qhM4sXCRQc/XpPOjHy/OJnoXuWCxzp1FKF5CmC0jTBaTpAtJ0AWm6wBWOXNzkiATuGLSEdR704/Y5g6oSOiOC3I0trdfE4RisgCZCmVBAVQlx5MrLjMAKlTAnQGlAYOc5rHYa2AGA3afhahkmbGQHAOztwpLXpQ6qJ8gZl5B2CZLP/NsqX4dfWHWQiBVZAAAAAElFTkSuQmCC"
+                alt="Meet" />
+            <span>Meet</span>
+        </a>
+        <a href="https://docs.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAA60lEQVR4nO2avQ3CMBSEz4gONqChpGQG2IUhoA5bQcdGUEOFBIL4N849w31lZCf36TmnFAEEFxdasOmu9xoPPu1nyXuccx95J74NtcIDwGJ3GeQ+vQI1wz8ZQsI7gTEolaALAGUSJgSAfAkzAkCehCkBIF3CnACQJmFSAIiXMCsAxEmYFgDCEuYFAL/EdMQcb6yW66T12+Pt6/UmJuCjeYHoI5Tz/V5K37F5pfkJSIBN9DsQcx4Z/M8E1EKVkAAbtRAbtRAbCbBRC7FRC7GRABu1EBsJsPldgfNhHvwNYUz68ngnYEXCSo4qPACEejNuqzEH5AAAAABJRU5ErkJggg=="
+                alt="Docs" />
+            <span>Docs</span>
+        </a>
+        <a href="https://sheets.google.com" class="app" target="_blank">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABAUlEQVR4nO2aTQrCQAyF34jgxhN4CFd6B/cKeiuvoaAn0TvpSrDo/GU6TR7kW5ZJm4+kjy4KOLqE3IHNZf/q8eDH8VZdE0L46XeWKujVPACsz7tR7hMV6Nn8hzEkkhOYglYJdQGgTcKEACCXMCMAyCRMCQD1EuYEgDoJkwJAuYRZAaBMwrQAkJcwLwCkJeYT9jFgsVpWnd9eD3+vFwtIvh5biTX9DcUKpaAXEL0DJaMFhmtXWlML/QToBUQrJEkkSY2nEAOeQtrQC3gKaUMv4CmkDb2Ap5A29AKeQtrQC3gKaUMvULxCvVKkFfoJRAWep3v2N4QpifWTnIAVCSt9dOENwcJF4d2u8rwAAAAASUVORK5CYII="
+                alt="Sheets" />
+            <span>Sheets</span>
+        </a>
+        <a href="https://about.google/products/" class="app" target="_blank">
+            <div class="app-plus">›</div>
+            <span>Plus</span>
         </a>
     </div>
 
-    <!-- CONTENU PRINCIPAL -->
-    <main class="main-content">
+    <!-- =============================================
+       CONTENU PRINCIPAL
+  ============================================= -->
+    <main class="contenu">
 
-        <!-- LOGO GOOGLE — mêmes couleurs Google -->
-        <div class="logo">
-            <span style="color:#4285f4;">G</span>
-            <span style="color:#ea4335;">o</span>
-            <span style="color:#fbbc05;">o</span>
-            <span style="color:#4285f4;">g</span>
-            <span style="color:#34a853;">l</span>
-            <span style="color:#ea4335;">e</span>
-        </div>
+        <!-- Logo Google avec les vraies couleurs officielles -->
+        <h1 class="logo" aria-label="Google">
+            <span class="bleu">G</span>
+            <span class="rouge">o</span>
+            <span class="jaune">o</span>
+            <span class="bleu">g</span>
+            <span class="vert">l</span>
+            <span class="rouge">e</span>
+        </h1>
 
-        <!-- BARRE DE RECHERCHE -->
-        <div class="search-bar">
-            <svg class="icon-loupe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="#9a8aaa" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5
-                   6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59
-                   4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6
-                   0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5
-                   14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        <!--
+      Barre de recherche :
+      div.barre contient loupe + input + micro
+      La loupe et le micro sont des SVG inline
+    -->
+        <div class="barre-recherche">
+            <!-- Loupe -->
+            <svg class="icone-loupe" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5
+                 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57
+                 l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0
+                 C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5
+                 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+
+            <!-- Champ texte -->
+            <input type="text" id="champRecherche" class="champ-texte" placeholder="Effectuez une recherche sur Google ou saisissez une URL" autocomplete="off" aria-label="Recherche Google" />
+
+            <!-- Micro (couleurs bleu + vert Google) -->
+            <button class="btn-micro" title="Recherche vocale" aria-label="Recherche vocale">
+        <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#4285f4"
+            d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3
+               S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+          <path fill="#34a853"
+            d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5
+               c0 3.53 2.61 6.43 6 6.92V21h2v-3.08
+               c3.39-.49 6-3.39 6-6.92h-2z"/>
         </svg>
-
-            <input type="text" id="searchInput" class="search-input" placeholder="Effectuez une recherche sur Google ou saisissez une URL" autocomplete="off" />
-
-            <button class="btn-mic" title="Recherche vocale">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
-            <path fill="#4285f4" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
-            <path fill="#34a853" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-          </svg>
-        </button>
+      </button>
         </div>
 
-        <!-- BOUTONS -->
-        <div class="search-buttons">
-            <button class="btn-google" id="btnSearch">Recherche Google</button>
-            <button class="btn-lucky" id="btnLucky">J'ai de la chance</button>
+        <!-- Boutons d'action -->
+        <div class="boutons">
+            <button class="btn-recherche" id="btnRecherche">Recherche Google</button>
+            <button class="btn-chance" id="btnChance">J'ai de la chance</button>
         </div>
 
-        <!-- LANGUE -->
-        <p class="lang-line">
-            Google proposé en&nbsp;:
-            <a href="#" class="lang-link">한국어</a>
-            <a href="#" class="lang-link">English</a>
+        <!-- Liens de langue -->
+        <p class="langues">
+            Google proposé en :
+            <a href="#" class="lien-langue">한국어</a>
+            <a href="#" class="lien-langue">English</a>
         </p>
 
     </main>
 
-    <!-- FOOTER -->
+    <!-- =============================================
+       FOOTER
+       Identique à Google :
+       - ligne 1 : pays
+       - ligne 2 : liens légaux gauche / centre / droite
+  ============================================= -->
     <footer class="footer">
-        <div class="footer-gauche">
-            <a href="#" class="footer-link">Publicité</a>
-            <a href="#" class="footer-link">Entreprises</a>
-            <a href="#" class="footer-link">Comment fonctionne la recherche Google</a>
-        </div>
-        <div class="footer-droite">
-            <a href="#" class="footer-link">Confidentialité</a>
-            <a href="#" class="footer-link">Conditions</a>
-            <a href="#" class="footer-link">Paramètres</a>
+        <div class="footer-pays">France</div>
+        <div class="footer-liens">
+            <div class="footer-gauche">
+                <a href="#" class="footer-lien">Publicité</a>
+                <a href="#" class="footer-lien">Entreprises</a>
+                <a href="#" class="footer-lien">Comment fonctionne la recherche Google ?</a>
+            </div>
+            <div class="footer-centre">
+                <a href="#" class="footer-lien">🌱 Notre troisième décennie d'action pour le climat</a>
+            </div>
+            <div class="footer-droite">
+                <a href="#" class="footer-lien">Signaler un contenu inapproprié</a>
+                <a href="#" class="footer-lien">Info consommateurs</a>
+                <a href="#" class="footer-lien">Confidentialité</a>
+                <a href="#" class="footer-lien">Conditions</a>
+                <a href="#" class="footer-lien">Paramètres</a>
+            </div>
         </div>
     </footer>
 
